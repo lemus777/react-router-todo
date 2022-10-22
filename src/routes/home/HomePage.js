@@ -1,11 +1,11 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useTodos } from '../useTodos';
 import { TodoHeader } from '../../ui/TodoHeader/index';
 import { TodoCounter } from "../../ui/TodoCounter";
 import { TodoSearch } from "../../ui/TodoSearch";
 import { TodoList } from '../../ui/TodoList/index';
 import { TodoItem } from '../../ui/TodoItem/index';
-import { TodoForm } from '../../ui/TodoForm/index';
 import { CreateTodoButton } from '../../ui/CreateTodoButton/index';
 import { Modal } from '../../ui/Modal/index';
 import { TodosError } from '../../ui/TodosError/index';
@@ -14,6 +14,7 @@ import { EmptyTodos } from '../../ui/EmptyTodos/index';
 import { ChangeAlert } from '../../ui/ChangeAlert/index';
 
 function HomePage() {
+  const navigate = useNavigate();
   const { state, stateUpdaters } = useTodos();
 
   const {
@@ -23,15 +24,15 @@ function HomePage() {
     completedTodos,
     searchValue,
     searchedTodos,
-    openModal,
+    //openModal,
   } = state;
 
   const {
     setSearchValue,
-    addTodo,
+    //addTodo,
     completeTodo,
     deleteTodo,
-    setOpenModal,
+    //setOpenModal,
     sincronizeTodos,
   } = stateUpdaters;
 
@@ -67,24 +68,25 @@ function HomePage() {
           key={todo.id} 
           text={todo.text} 
           completed={todo.completed}
-          onEdit={() => console.log('Editar ToDo')}
+          onEdit={() => navigate('/edit/' + todo.id)}
           onComplete={() => completeTodo(todo.id)} // con onComplete mandamos a la función completeTodo el texto de ese todo
           onDelete={() => deleteTodo(todo.id)} 
         />
         )}
     </TodoList>
   
-    {!!openModal && (
+    {/*{!!openModal && (
         <Modal>
             <TodoForm
               addTodo={addTodo}
               setOpenModal={setOpenModal}
             />
         </Modal>
-    )}
+    )}*/}
 
     <CreateTodoButton
-        setOpenModal={setOpenModal}
+      onClick={() => navigate('/new')}
+        //setOpenModal={setOpenModal}
     />
     <ChangeAlert
       sincronize={sincronizeTodos}

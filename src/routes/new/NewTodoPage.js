@@ -1,8 +1,13 @@
 import React from 'react';
+import { TodoForm } from '../../ui/TodoForm/index';
 
 function NewTodoPage() {
     return (
-        <p>New ToDo page</p>
+        <TodoForm
+            label='Escribe tu nuevo ToDo'
+            submitText='Añadir'
+            submitEvent={() => console.log('Llamar a addTodo')}
+        />
     );
 }
 
