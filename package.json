@@ -1,5 +1,5 @@
 {
-  "name": "intro-react",
+  "name": "react-router-todo",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -41,5 +41,5 @@
   "devDependencies": {
     "gh-pages": "^4.0.0"
   },
-  "homepage": "https://lemus777.github.io/intro-react"
+  "homepage": "https://lemus777.github.io/react-router-todo"
 }
