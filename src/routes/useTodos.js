@@ -10,7 +10,6 @@ function useTodos() { // hacemos un custom hook
         error,
       } = useLocalStorage('TODOS_V2', []); //llamamos a nuestro custom hook
       const [searchValue, setSearchValue] = React.useState(''); // el estado usa un array de searchValue y setSearchValue, es igual a un estado que es un array vacío. Esto se guarda en la constante searchValue, y setSearchValue cambia este estado, por tanto cambia searchValue
-      const [openModal, setOpenModal] = React.useState(false); // entre paréntesis va el estado por defecto de nuestro modal, que como no lo queremos abierto es false
     
       const completedTodos = todos.filter(todo => !!todo.completed).length; // filtra nuestros todo y mira si tiene completed como true gracias a !!
       const totalTodos = todos.length; // totalTodos nos da el número total de todos que tenemos
@@ -37,11 +36,23 @@ function useTodos() { // hacemos un custom hook
         });
         saveTodos(newTodos); //vamos a actualizar el estado de todos para que sea igual a newTodos y a la vez guarda para persistencia, ver la función más arriba
       };
+
+      const getTodo = (id) => {
+        const todoIndex = todos.findIndex(todo => todo.id === id); // va a buscarnos el índice del todo cuya id coincide con la id aportada a la funcion
+        return todos[todoIndex]; // de la lista de ToDos nos devuelve el que tenga el todoIndex buscado previamente
+      }
     
       const completeTodo = (id) => {
         const todoIndex = todos.findIndex(todo => todo.id === id); // va a buscarnos el índice del todo cuya id coincide con la id aportada a la funcion
         const newTodos = [...todos]; // vamos a clonar la lista de todos (eso es con el ...)
         newTodos[todoIndex].completed = true; // de esta lista clonada el que tiene la id coincidente va a ser marcado como completado
+        saveTodos(newTodos); //vamos a actualizar el estado de todos para que sea igual a newTodos y a la vez guarda para persistencia, ver la función más arriba
+      };
+
+      const editTodo = (id, newText) => {
+        const todoIndex = todos.findIndex(todo => todo.id === id); // va a buscarnos el índice del todo cuya id coincide con la id aportada a la funcion
+        const newTodos = [...todos]; // vamos a clonar la lista de todos (eso es con el ...)
+        newTodos[todoIndex].text = newText; // de esta lista clonada el que tiene la id coincidente va a sustituir su texto por el nuevo texto editado
         saveTodos(newTodos); //vamos a actualizar el estado de todos para que sea igual a newTodos y a la vez guarda para persistencia, ver la función más arriba
       };
     
@@ -59,15 +70,15 @@ function useTodos() { // hacemos un custom hook
         completedTodos,
         searchValue,
         searchedTodos,
-        openModal,
+        getTodo,
       };
 
       const stateUpdaters = {
         setSearchValue,
         addTodo,
         completeTodo,
+        editTodo,
         deleteTodo,
-        setOpenModal,
         sincronizeTodos,
       }
 

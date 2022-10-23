@@ -4,7 +4,7 @@ import './TodoForm.css';
 
 function TodoForm(props) {
     const navigate = useNavigate();
-    const [newTodoValue, setNewTodoValue] = React.useState('');
+    const [newTodoValue, setNewTodoValue] = React.useState(props.defaultTodoText || ''); // newTodoValue será un string vacío sólo si defaultTodoText no existe
     
     const onChange = (event) => {
         setNewTodoValue(event.target.value);
@@ -14,9 +14,9 @@ function TodoForm(props) {
     };
     const onSubmit = (event) => {
         event.preventDefault(); // Gracias a esto no se recarga la página al darle click al botón tipo submit
-        if (newTodoValue.length <= 0) return; // Esta línea hace que en el caso de que dejemos el texto vacío no agrege nuevo todo
-        navigate('/');
+        // if (newTodoValue.length <= 0) return; // Esta línea hace que en el caso de que dejemos el texto vacío no agrege nuevo todo
         props.submitEvent(newTodoValue);
+        navigate('/');
     };
 
     return(

@@ -68,7 +68,7 @@ function HomePage() {
           key={todo.id} 
           text={todo.text} 
           completed={todo.completed}
-          onEdit={() => navigate('/edit/' + todo.id)}
+          onEdit={() => navigate('/edit/' + todo.id, { state: { todo } },)} // le damos dos parámetros, la ruta con id y un estado que es el todo
           onComplete={() => completeTodo(todo.id)} // con onComplete mandamos a la función completeTodo el texto de ese todo
           onDelete={() => deleteTodo(todo.id)} 
         />
